@@ -1,0 +1,11 @@
+python-dotenv
+mira-sdk
+numpy
+pandas
+matplotlib 
+streamlit
+beautifulsoup4
+requests
+selenium
+youtube-transcript-api
+PyPDF2
