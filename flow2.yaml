@@ -4,33 +4,42 @@ version: "0.0.2"
 # Basic metadata for the agent
 metadata:
   name: "lecture-framework-creator"
-  description: "This flow helps create a lecture framework for teachers for a given pdf or video transcript."
-  author: "1404samyak" # This username should match your account username
-  tags: [writing] # Tags are keywords used to categorize your flow
-  private: false # Access control for your flows (true/false)
+  description: "This flow helps create a lecture framework for teachers based on a given PDF or video transcript."
+  author: "1404samyak"  # Ensure this matches your account username
+  tags: [writing, teaching, education]  # Tags are keywords used to categorize your flow
+  private: false  # Access control for your flows (true/false)
 
 # Define the input variables required
 inputs:
   transcript:
     type: string
-    description: "Enter the pdf text or video transcript"
+    description: "Enter the PDF text or video transcript."
     required: true
-    example: "artificial intelligence is this overarching field where we try to solve problems that typically requires human intelligence such as driving a car using autonomous software or writing a poem using chat GPT machine learning is a subset of AI deep learning is a subdomain within machine learning deep learning is all about neural networks using deep learning we can solve variety of problems and one category of problems requires just generating new text or generating new videos images Etc and that category is called geni so geni is a subset of deep learning now that we have a good overview of all these terms let's try to understand them a bit more in detail let's start with a quiz I have given you this table of input output pairs observe that and tell me what will be the output for this new input which is five after some thinking it is not hard to Guess that the output will be 25 what you did is you observed this input output pair and extracted some pattern out of it and you realize that output is nothing but the square of your input therefore the output for five will be 25 as a human how we can recognize patterns you can also write a computer program and you can give this input output Pairs and that program will extract these patterns or these equations and these set of programs or algorithms that you use to extract patterns is called machine learning techniques there are algorithms such as linear regression XG boost neural networks which you can use to extract these kind of patterns another use case is house price prediction here the input is area and bedroom and the output is price so if I give you this table and then give you a new number let's say predict the price of a home with area 2100 ft² and three bedrooms what will be your estimate well it might be hard to guess this but if you give this to a computer program and use this linear regression algorithm it will be able to derive or extract this equation from your input output pair and then you can give this new data point right like this new data point which is 2100 and3 bedroom to this equation and it will predict the output real estate companies like Zill use this kind of method to train a machine learning model and get an estimate of a new home that is out in the market the other use case is fraud detection if you are a bank you have all your past transactions fraud transaction as well as transactions which are legitimate you can use that and train a machine learning model and now this model can take a new transaction as an input and tell you if it's a fraud or not to summarize in machine learning we give input output pair to a computer program it will run all these algorithms linear regression neural network Etc to train a machine learning model once the model is trained it basically has these patterns or these equations and then you can give a new input let say input five and then it will perform something called inference or prediction to produce the output in machine learning you have statistical ML and deep learning okay deep learning is all about neural network statistical machine learning mainly deals with structure data where the volume of data is low and it uses all these techniques linear regression XG boost random Forest Etc deep learning is all about neural networks it is called Deep because when a neural network has many layers it forms a deep neural network that's why it's called Deep learning and the inspiration of neural network comes from how our human brain works so deep learning is mainly used for unstructured complex data where your features or where your input is complex such as images video audio text these are not structured data you don't have specific columns and rows right you have a bunch of pixels or video frames or a bunch of words this type of data uh is complex to process and for this you need complex techniques such as deep learning to summarize statistical ml has all these algorithms linear regression random Forest XG boost Etc deep learning is all about neural network but there are specific neural network architectures such as convolutional neural network recurrent neural network Transformer Etc using deep learning you can solve variety of problems like image classification language translation or generating text or generating video and anything that is related to generating new data is called generative Ai and here we use a specific deep learning architecture called Transformer remember that AI is trying to solve a problem that typically requires human intelligence so AI can be done even without machine learning one example is Rule based system you can write bunch of eals Loop and you can build an AI system regular Expressions robotics okay most of the AI systems will have machine learning but on top of machine learning you can have all this Tech techniques rule-based system robotics regular expression Etc where you can build an intelligent system that can perform a task that typically requires human intelligence I hope this video give you some understanding on the difference between all these terms I have many more videos like this which contain simple explanations of complex topics I'm going to include a link of that playlist down below so please check it out if you have any questions Post in the comment box below oh [Music]"
+    example: |
+      "Artificial intelligence is this overarching field where we try to solve problems that typically require human intelligence, such as driving a car using autonomous software or writing a poem using chat GPT. Machine learning is a subset of AI. Deep learning is a subdomain within machine learning..."
   duration:
     type: string
-    description: "Enter the duration of the lecture"
+    description: "Enter the duration of the lecture (in minutes)."
     required: true
     example: "60"
 
 # LLM configuration
 model:
-  provider: "openai" # e.g., anthropic, openai, meta, etc.
-  name: "gpt-4o"
+  provider: "openai"  # e.g., anthropic, openai, meta, etc.
+  name: "gpt-4o"  # Ensure compatibility with the provider and model
 
-
+# Prompt template configuration
 prompt: |
-  I want to give a lecture on the following content : {transcript} please create a lecture framework so that I can properly deliver the lecture in {duration} minutes. Give the basic framework and timings for each topic completion. Also give your personal advice and guidance in how to deliver some tough topics. Keep the framework medium sized not too long. 
+  I want to give a lecture on the following content: {transcript}.
+  Please create a lecture framework that will help me deliver the lecture in {duration} minutes. 
+  Provide the basic framework with suggested timings for each topic's completion. Additionally, give personal advice and guidance on how to deliver challenging topics effectively. 
+  Keep the framework medium-sized—do not make it too long, as I want to deliver it within the specified time.
 
-# ReadME configuration
+# Readme configuration
 readme: |
-  This flow can solve your doubts on basis of the pdf provided
+  This flow is designed to help create a structured framework for delivering a lecture based on the provided PDF or video transcript. You will receive suggested timings and advice on how to effectively present each topic. 
+
+  Example:
+    - Transcript: "Artificial intelligence is the overarching field where we solve problems that typically require human intelligence, such as driving cars using autonomous software."
+    - Duration: 60 minutes
+    - Expected Output: A lecture framework broken down into sections with estimated timings and guidance on how to approach the lecture content.
