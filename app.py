@@ -103,7 +103,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-
 # Title
 st.title("MIRA Edu Tool")
 
@@ -135,25 +134,43 @@ if input_type == "Video URL":
             transcript = YouTubeTranscriptApi.get_transcript(video_id)
             plain_transcript = " ".join([entry['text'] for entry in transcript])
         except Exception as e:
-            print(f"An error occurred: {e}")
+            st.error(f"An error occurred while fetching the transcript: {e}")
         
         if operation == "Resolve Doubt":
             input_dict = {"doubt": doubt, "transcript": plain_transcript}
-            response = client.flow.test(flow_doubt, input_dict)
-            st.subheader("Explanation of your doubt")
-            st.write(response['result'])
+            try:
+                response = client.flow.test(flow_doubt, input_dict)
+                if response and 'result' in response:
+                    st.subheader("Explanation of your doubt")
+                    st.write(response['result'])
+                else:
+                    st.error("No result or error in response.")
+            except Exception as e:
+                st.error(f"An error occurred while processing the doubt: {str(e)}")
         
         elif operation == "Generate Summary":
             input_dict = {"transcript": plain_transcript}
-            response = client.flow.test(flow_summary, input_dict)
-            st.subheader("Summary")
-            st.write(response['result'])
+            try:
+                response = client.flow.test(flow_summary, input_dict)
+                if response and 'result' in response:
+                    st.subheader("Summary")
+                    st.write(response['result'])
+                else:
+                    st.error("No result or error in response.")
+            except Exception as e:
+                st.error(f"An error occurred while generating the summary: {str(e)}")
         
         elif operation == "Create Lecture plan":
             input_dict = {"transcript": plain_transcript, "duration": lecture_duration}
-            response = client.flow.test(flow_framework, input_dict)
-            st.subheader("Lecture plan")
-            st.write(response['result'])
+            try:
+                response = client.flow.test(flow_framework, input_dict)
+                if response and 'result' in response:
+                    st.subheader("Lecture plan")
+                    st.write(response['result'])
+                else:
+                    st.error("No result or error in response.")
+            except Exception as e:
+                st.error(f"An error occurred while creating the lecture plan: {str(e)}")
 
 # Input logic for PDF File
 elif input_type == "PDF File":
@@ -177,21 +194,39 @@ elif input_type == "PDF File":
             if st.button("Process"):
                 if operation == "Resolve Doubt":
                     input_dict = {"doubt": doubt, "transcript": pdf_text}
-                    response = client.flow.test(flow_doubt, input_dict)
-                    st.subheader("Explanation of your doubt")
-                    st.write(response['result'])
+                    try:
+                        response = client.flow.test(flow_doubt, input_dict)
+                        if response and 'result' in response:
+                            st.subheader("Explanation of your doubt")
+                            st.write(response['result'])
+                        else:
+                            st.error("No result or error in response.")
+                    except Exception as e:
+                        st.error(f"An error occurred while processing the doubt: {str(e)}")
                 
                 elif operation == "Generate Summary":
                     input_dict = {"transcript": pdf_text}
-                    response = client.flow.test(flow_summary, input_dict)
-                    st.subheader("Summary")
-                    st.write(response['result'])
+                    try:
+                        response = client.flow.test(flow_summary, input_dict)
+                        if response and 'result' in response:
+                            st.subheader("Summary")
+                            st.write(response['result'])
+                        else:
+                            st.error("No result or error in response.")
+                    except Exception as e:
+                        st.error(f"An error occurred while generating the summary: {str(e)}")
                 
                 elif operation == "Create Lecture plan":
                     input_dict = {"transcript": pdf_text, "duration": lecture_duration}
-                    response = client.flow.test(flow_framework, input_dict)
-                    st.subheader("Lecture plan")
-                    st.write(response['result'])
+                    try:
+                        response = client.flow.test(flow_framework, input_dict)
+                        if response and 'result' in response:
+                            st.subheader("Lecture plan")
+                            st.write(response['result'])
+                        else:
+                            st.error("No result or error in response.")
+                    except Exception as e:
+                        st.error(f"An error occurred while creating the lecture plan: {str(e)}")
         
         except Exception as e:
             st.error(f"An error occurred while processing the PDF: {e}")
