@@ -1,14 +1,1 @@
-# Initialize the client with the API key
-client = MiraClient(config={"API_KEY": api_key})
 
-# Define the flow based on the configuration
-flow_doubt = Flow(source="path/to/your/flow.yaml")  # This path should be where your YAML file is located
-
-# Example of calling the flow
-input_dict = {
-    "doubt": doubt,  # User input doubt
-    "transcript": plain_transcript  # The transcript extracted from video or PDF
-}
-
-# Get the result
-response = client.flow.test(flow_doubt, input_dict)
