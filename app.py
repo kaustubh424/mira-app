@@ -19,89 +19,16 @@ flow_framework = Flow(source="flow2.yaml")  # For creating a lecture framework
 # Apply custom CSS for styling
 st.markdown("""
     <style>
-        /* Center the app content */
+        /* Custom CSS for styling */
         .main {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
         }
-        /* Style the block container */
-        .block-container {
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
-            padding: 25px;
-            border-radius: 15px;
-            background-color: black;
-            font-family: 'Roboto', sans-serif;
-        }
-        /* Style the title */
-        h1 {
-            color: #2E7D32;
-            font-family: 'Roboto', sans-serif;
-            font-weight: 700;
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 15px;
-            text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
-        }
-        /* Style the subheader */
-        h2, h3 {
-            color: #388E3C;
-            font-family: 'Roboto', sans-serif;
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
-        /* Style input fields */
-        .stTextInput, .stNumberInput {
-            width: 80% !important;
-            margin: 15px auto;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            font-size: 16px;
-            box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
-        }
-        /* Style buttons */
-        button {
-            background-color: #66BB6A;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15);
-        }
-        button:hover {
-            background-color: #43A047;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
-        }
-        /* Style dropdowns */
-        .stSelectbox {
-            width: 80% !important;
-            margin: 15px auto;
-            border: 1px solid #ccc;
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 16px;
-            background-color: #fff;
-            box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
-        }
-        /* Highlight information boxes */
-        .stAlert {
-            margin: 15px 0;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
-            background-color: #333;
-            color: #2E7D32;
-            font-weight: bold;
-        }
+        /* Add your other CSS here */
     </style>
 """, unsafe_allow_html=True)
-
 
 # Title
 st.title("MIRA Edu Tool")
@@ -118,7 +45,12 @@ operation = st.selectbox("Select Operation:", ["Resolve Doubt", "Generate Summar
 # Input logic for Video URL
 if input_type == "Video URL":
     video_url = st.text_input("Enter the Video URL:")
-    video_id = video_url.replace('https://youtu.be/', "")
+    
+    # Ensure correct video ID format
+    if video_url.startswith('https://youtu.be/'):
+        video_id = video_url.replace('https://youtu.be/', "")
+    else:
+        video_id = video_url.replace('https://www.youtube.com/watch?v=', "")
     
     if operation == "Resolve Doubt":
         doubt = st.text_input("Enter Your Doubt:")
@@ -129,12 +61,13 @@ if input_type == "Video URL":
     # Button to perform the selected operation
     if st.button("Process"):
         st.success("Processing your request...")
-        plain_transcript = "......."
+        plain_transcript = ""
         try:
             transcript = YouTubeTranscriptApi.get_transcript(video_id)
             plain_transcript = " ".join([entry['text'] for entry in transcript])
         except Exception as e:
             st.error(f"An error occurred while fetching the transcript: {e}")
+            plain_transcript = "Subtitles are unavailable for this video."
         
         if operation == "Resolve Doubt":
             input_dict = {"doubt": doubt, "transcript": plain_transcript}
