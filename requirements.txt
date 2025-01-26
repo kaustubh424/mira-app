@@ -1,28 +1,9 @@
-# Environment management and configuration
-python-dotenv>=0.19.0  # Used for loading environment variables
-
-# Dependencies for interacting with the Mira SDK
-mira-sdk==0.0.3  # Specific version of the Mira SDK, adjust according to needs
-
-# Data manipulation and computation libraries
-numpy>=1.21.0  # Core numerical computations
-pandas>=1.2.0  # Data manipulation and analysis
-
-# Data visualization libraries
-matplotlib>=3.4.0  # Used for visualizations and plotting graphs
-
-# Web and API interaction libraries
-streamlit>=1.10.0  # Web app framework for building interactive apps
-beautifulsoup4>=4.11.0  # Web scraping library
-requests>=2.26.0  # HTTP library for making API requests
-
-# Browser automation and scraping
-selenium>=4.0.0  # For web automation and scraping
-
-# API interaction for YouTube transcripts
-youtube-transcript-api>=0.5.0  # API to extract YouTube video transcripts
-
-# PDF handling libraries
-PyPDF2>=1.26.0  # Library for handling PDF files (reading and extracting text)
-
-# Optional: Ensure compatibility with other dependencies as needed
+python-dotenv>=0.19.0
+beautifulsoup4>=4.11.0
+requests>=2.26.0
+numpy>=1.21.0
+pandas>=1.2.0
+matplotlib>=3.4.0
+streamlit>=1.10.0
+youtube-transcript-api>=0.5.0
+PyPDF2>=1.26.0
